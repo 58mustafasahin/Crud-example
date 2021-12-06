@@ -7,10 +7,12 @@ const Gallery = () => {
     const [veri, setVeri] = useState([])
 
     useEffect(() => {
-        fetch('https://jsonplaceholder.typicode.com/todos')
+        // fetch('https://jsonplaceholder.typicode.com/todos')
+        fetch('http://localhost:56156/api/Category/GetListCategory')
             .then(response => response.json())
             // .then(json => console.log(json))
-            .then(data => setVeri(data))
+            .then(data => setVeri(data.message))
+            .catch(err => alert(err))
     }, [])
     console.log("ads", veri)
     return (
@@ -27,7 +29,8 @@ const Gallery = () => {
                 </thead>
                 <tbody>
                     {veri.map((item) => (
-                        <MyTable key={item.id} id={item.id} userId={item.userId} title={item.title} completed={item.completed.toString()} />
+                        // <MyTable key={item.id} id={item.id} userId={item.userId} title={item.title} completed={item.completed.toString()} />
+                        <MyTable key={item.categoryId} id={item.categoryId} userId={item.categoryName} title={item.description} />
                     ))}
                 </tbody>
             </Table>

@@ -3,6 +3,7 @@ import React from "react";
 const Home = React.lazy(() => import("../pages/Home"))
 const About = React.lazy(() => import("../pages/About"))
 const Gallery = React.lazy(() => import("../pages/Gallery"))
+const Category = React.lazy(() => import("../pages/Category"))
 
 const routes = [
     {
@@ -12,6 +13,10 @@ const routes = [
     {
         path: '/Gallery',
         element: <Gallery />
+    },
+    {
+        path: '/category',
+        element: <Category />
     },
     {
         path: '/',
