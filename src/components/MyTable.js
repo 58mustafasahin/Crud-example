@@ -1,49 +1,40 @@
-import React, { useState } from 'react'
-import { Button, Col, Row } from 'reactstrap'
-import MyModal from './MyModal';
+import React from 'react'
+import { Button, Col, Row, Table } from 'reactstrap'
 
-const MyTable = ({ userId, id, title, completed, change, setChange, setAddData }) => {
+const MyTable = ({ data, func1,func2 }) => {
 
-    // const [selectedId, setSelectedId] = useState(0)
-    const [open, setOpen] = useState(false)
-    const [method, setMethod] = useState("")
 
-    const DeleteData = (selectedId) => {
-        fetch(`http://localhost:56156/api/Category/DeleteCategory/${selectedId}`, {
-            method: 'DELETE',
-        })
-            .then(() => setChange(!change));;
-    }
-
-    
     return (
         <>
-            <tr>
-                <td>{id}</td>
-                <td>{userId}</td>
-                <td>{title}</td>
-                {completed == null ? null : <td>{completed}</td>}
-                <td>
-                    <Row>
-                        <Col>
-                            <Button onClick={() => {setOpen(true); setMethod("Update")}}>Güncelle</Button>
-                        </Col>
-                        <Col>
-                            <Button onClick={() => DeleteData()}>Sil</Button>
-                        </Col>
-                    </Row>
-                </td>
-            </tr>
-
-            <MyModal
-                text="hoş geldin boş gittin"
-                open={open}
-                setOpen={setOpen}
-                method={method}
-                change={change}
-                setChange={setChange}
-                setAddData={setAddData}
-            />
+            <Table striped bordered hover>
+                <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>Category Name</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {data.map((item, key) => (
+                        <tr key={key}>
+                            <td>{item.categoryId}</td>
+                            <td>{item.categoryName}</td>
+                            <td>{item.description}</td>
+                            {item.completed == null ? null : <td>{item.completed}</td>}
+                            <td>
+                                <Row>
+                                    <Col>
+                                        <Button onClick={() => func1(item)}>Güncelle</Button>
+                                    </Col>
+                                    <Col>
+                                        <Button onClick={() => func2(item.categoryId)}>Sil</Button>
+                                    </Col>
+                                </Row>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </Table>
         </>
     )
 }
