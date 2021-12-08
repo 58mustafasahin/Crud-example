@@ -12,7 +12,7 @@ const MyTable = ({ data, func1, func2 }) => {
                     <tr>
                         {data.length === 0 ? null : Object.keys(data[0]).map((item, key) => (
                             <th key={key}>
-                                {item}
+                                {(item.charAt(0).toUpperCase()+item.slice(1)).replace(/([A-Z]+)/g, " $1").replace(/^,/, " ")}
                             </th>
                         ))}
                         <th>
@@ -26,7 +26,7 @@ const MyTable = ({ data, func1, func2 }) => {
                             {Object.keys(item).map((obj, key2) => (
                                 <td key={key2}>
                                     {console.log(obj)}
-                                    {item[obj]}
+                                    {item[obj].toString()}
                                 </td>
                             ))
                             }
