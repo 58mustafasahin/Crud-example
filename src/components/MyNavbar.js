@@ -34,6 +34,11 @@ const MyNavbar = () => {
                             </NavLink>
                         </NavItem>
                         <NavItem>
+                            <NavLink href="/Product">
+                                Product
+                            </NavLink>
+                        </NavItem>
+                        <NavItem>
                             <NavLink href="/About">
                                 About
                             </NavLink>

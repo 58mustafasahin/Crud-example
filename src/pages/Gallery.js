@@ -7,11 +7,11 @@ const Gallery = () => {
     const [veri, setVeri] = useState([])
 
     useEffect(() => {
-        // fetch('https://jsonplaceholder.typicode.com/todos')
-        fetch('http://localhost:56156/api/Category/GetListCategory')
+        fetch('https://jsonplaceholder.typicode.com/todos')
+        // fetch('http://localhost:56156/api/Category/GetListCategory')
             .then(response => response.json())
             // .then(json => console.log(json))
-            .then(data => setVeri(data.message))
+            .then(data => setVeri(data))
             .catch(err => alert(err))
     }, [])
     console.log("ads", veri)

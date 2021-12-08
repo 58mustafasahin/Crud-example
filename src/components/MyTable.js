@@ -1,33 +1,42 @@
 import React from 'react'
 import { Button, Col, Row, Table } from 'reactstrap'
 
-const MyTable = ({ data, func1,func2 }) => {
+const MyTable = ({ data, func1, func2 }) => {
 
+    // { console.log("keeee", data.length === 0 ? null : Object.keys(data[0])) }
 
     return (
         <>
             <Table striped bordered hover>
                 <thead>
                     <tr>
-                        <th>id</th>
-                        <th>Category Name</th>
-                        <th>Description</th>
+                        {data.length === 0 ? null : Object.keys(data[0]).map((item, key) => (
+                            <th key={key}>
+                                {item}
+                            </th>
+                        ))}
+                        <th>
+                            İşlemler
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
                     {data.map((item, key) => (
                         <tr key={key}>
-                            <td>{item.categoryId}</td>
-                            <td>{item.categoryName}</td>
-                            <td>{item.description}</td>
-                            {item.completed == null ? null : <td>{item.completed}</td>}
+                            {Object.keys(item).map((obj, key2) => (
+                                <td key={key2}>
+                                    {console.log(obj)}
+                                    {item[obj]}
+                                </td>
+                            ))
+                            }
                             <td>
                                 <Row>
                                     <Col>
-                                        <Button onClick={() => func1(item)}>Güncelle</Button>
+                                        <Button color={"warning"} onClick={() => func1(item)}>Güncelle</Button>
                                     </Col>
                                     <Col>
-                                        <Button onClick={() => func2(item.categoryId)}>Sil</Button>
+                                        <Button color={"danger"} onClick={() => func2(item.categoryId)}>Sil</Button>
                                     </Col>
                                 </Row>
                             </td>

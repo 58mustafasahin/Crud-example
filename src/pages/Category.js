@@ -29,7 +29,6 @@ const Category = () => {
         console.log("data", data)
         AddData(data)
         setOpen(!open)
-        setChange(!change)
     }
 
     const { register: registerUpdate, handleSubmit: handleSubmitUpdate, formState: { errors: errorsUpdate } } = useForm();
@@ -62,7 +61,7 @@ const Category = () => {
         })
             .then((response) => response.json())
             .then((json) => console.log(json))
-            .then(() => setChange(!change));
+            .finally(() => setChange(!change));
     }
 
     const UpdateData = (data) => {
@@ -79,7 +78,7 @@ const Category = () => {
         })
             .then((response) => response.json())
             .then((json) => console.log(json))
-            .then(() => setChange(!change));
+            .finally(() => setChange(!change));
     }
 
     const DeleteData = (selectedId) => {
@@ -92,7 +91,7 @@ const Category = () => {
     return (
         <Container>
             <h1>Category</h1> {" "}
-            <Button onClick={() => setOpen(true)}>Ekle</Button>
+            <Button color={"primary"} onClick={() => setOpen(true)}>Ekle</Button>
             <MyTable data={veri} change={change} setChange={setChange}
                 func1={getSelectedData}
                 func2={DeleteData}
@@ -116,12 +115,12 @@ const Category = () => {
                         />
                         <div>
                             {
-                                errors.title?.message
+                                errors.categoryName?.message
                             }
                         </div>
                     </FormGroup>
                     <FormGroup>
-                        <Label for="Description">Description</Label>
+                        <Label for="description">Description</Label>
                         <Input
                             type="text"
                             id="description"
@@ -131,7 +130,7 @@ const Category = () => {
                         />
                         <div>
                             {
-                                errors.title?.message
+                                errors.description?.message
                             }
                         </div>
                     </FormGroup>
@@ -176,12 +175,12 @@ const Category = () => {
                         />
                         <div>
                             {
-                                errorsUpdate.title?.message
+                                errorsUpdate.categoryName?.message
                             }
                         </div>
                     </FormGroup>
                     <FormGroup>
-                        <Label for="Description">Description</Label>
+                        <Label for="description">Description</Label>
                         <Input
                             type="text"
                             id="description"
@@ -192,7 +191,7 @@ const Category = () => {
                         />
                         <div>
                             {
-                                errorsUpdate.title?.message
+                                errorsUpdate.description?.message
                             }
                         </div>
                     </FormGroup>
