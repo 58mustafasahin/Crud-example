@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 
-const MyModal = ({ open, setOpen, title, buttontext, children,func1 }) => {
+const MyModal = ({ open, setOpen, title, buttontext, children }) => {
 
     return (
         <div>

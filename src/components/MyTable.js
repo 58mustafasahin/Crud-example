@@ -25,7 +25,7 @@ const MyTable = ({ data, func1, func2 }) => {
                         <tr key={key}>
                             {Object.keys(item).map((obj, key2) => (
                                 <td key={key2}>
-                                    {console.log(obj)}
+                                    {/* {console.log(obj)} */}
                                     {item[obj].toString()}
                                 </td>
                             ))
