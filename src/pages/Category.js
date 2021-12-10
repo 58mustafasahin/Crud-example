@@ -97,7 +97,7 @@ const Category = () => {
                             type="text"
                             id="categoryName"
                             name="categoryName"
-                            innerRef={register({ required: "Category is required", minLength: { value: 2, message: "Category must have at least 2 characters" } })}
+                            innerRef={register({ required: "Category name is required", minLength: { value: 2, message: "Category must have at least 2 characters" } })}
                             placeholder="CategoryName"
                         />
                         <div>
@@ -157,8 +157,8 @@ const Category = () => {
                             id="categoryName"
                             name="categoryName"
                             defaultValue={selectedData.categoryName}
-                            innerRef={registerUpdate({ required: "Category is required" })}
-                            placeholder="CategoryName"
+                            innerRef={registerUpdate({ required: "Category name is required" })}
+                            placeholder="Category Name"
                         />
                         <div>
                             {

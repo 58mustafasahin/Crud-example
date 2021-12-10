@@ -12,7 +12,7 @@ const MyTable = ({ data, func1, func2 }) => {
                     <tr>
                         {data.length === 0 ? null : Object.keys(data[0]).map((item, key) => (
                             <th key={key}>
-                                {(item.charAt(0).toUpperCase()+item.slice(1)).replace(/([A-Z]+)/g, " $1").replace(/^,/, " ")}
+                                {(item.charAt(0).toUpperCase()+item.slice(1)).replace(/([A-Z]+)/g, " $1").trim()}
                             </th>
                         ))}
                         <th>
