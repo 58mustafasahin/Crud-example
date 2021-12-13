@@ -10,17 +10,6 @@ const Product = () => {
     const [open, setOpen] = useState(false)
     const [change, setChange] = useState(false)
 
-    const selectOption = [
-        {
-            label: "Film",
-            value: 1
-        },
-        {
-            label: "Tiyatro",
-            value: 2
-        }
-    ]
-
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const onSubmit = (data) => {
