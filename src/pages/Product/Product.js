@@ -24,7 +24,7 @@ const Product = () => {
 
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = (data) => {
-        data.discontinued = data.discontinued == "true" ? true : false;
+        data.discontinued = data.discontinued === "true" ? true : false;
         console.log("data", data)
         AddData(data)
     }
@@ -37,7 +37,7 @@ const Product = () => {
 
     const { register: registerUpdate, handleSubmit: handleSubmitUpdate, formState: { errors: errorsUpdate } } = useForm();
     const onSubmitUpdate = (data) => {
-        data.discontinued = data.discontinued == "true" ? true : false;
+        data.discontinued = data.discontinued === "true" ? true : false;
         console.log("data", data)
         UpdateData(data)
     }
@@ -81,7 +81,7 @@ const Product = () => {
                         </DropdownToggle>
                         <DropdownMenu>
                             <DropdownItem>
-                                <Link to={`/ProductDetail/${row.productId}`}><Button color={"info"}>Detay</Button></Link>
+                                <Link to={`/ProductDetail/${row.productId}`} ><Button color={"info"}>Detay</Button></Link>
                             </DropdownItem>
                             <DropdownItem>
                                 <Button color={"warning"} onClick={() => { setSelectedData(row); setUpdateOpen(!updateOpen) }}>Güncelle</Button>

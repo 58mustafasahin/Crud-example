@@ -20,10 +20,8 @@ const Category = () => {
     useEffect(() => {
         fetch('http://localhost:56156/api/Category/GetListCategory')
             .then(response => response.json())
-            // .then(json => console.log(json))
             .then(data => setVeri(data.message))
             .catch(err => alert(err))
-        console.log("veriler", veri)
     }, [change])
 
     const AddData = (data) => {
@@ -38,7 +36,6 @@ const Category = () => {
             },
         })
             .then((response) => response.json())
-            // .then((json) => console.log(json))
             .then(() => setOpen(!open))
             .finally(() => setChange(!change));
     }
@@ -60,7 +57,6 @@ const Category = () => {
             },
         })
             .then((response) => response.json())
-            // .then((json) => console.log(json))
             .then(() => setUpdateOpen(!updateOpen))
             .finally(() => setChange(!change));
     }
