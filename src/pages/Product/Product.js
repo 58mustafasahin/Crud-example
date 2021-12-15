@@ -23,12 +23,13 @@ const Product = () => {
     }, [change])
 
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const onSubmit = (data) => {
-        data.discontinued = data.discontinued === "true" ? true : false;
-        console.log("data", data)
-        AddData(data)
-    }
+    // const onSubmit = (data) => {
+    //     data.discontinued = data.discontinued === "true" ? true : false;
+    //     console.log("data", data)
+    //     AddData(data)
+    // }
     const AddData = (data) => {
+        data.discontinued = data.discontinued === "true" ? true : false;
         axios.post('http://localhost:56156/api/Product/AddProduct', data)
             .then((response) => console.log('sonuc', response.data))
             .then(() => setOpen(!open))
@@ -113,7 +114,7 @@ const Product = () => {
                 setOpen={setOpen}
                 title='Ekle'
             >
-                <Form onSubmit={handleSubmit(onSubmit)}>
+                <Form onSubmit={handleSubmit(AddData)}>
                     <FormGroup>
                         <Label for="productName">Product Name</Label>
                         <Input

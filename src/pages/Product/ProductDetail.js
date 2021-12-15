@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react'
 import { Button, Col, Container, Form, FormGroup, Input, Label, Row } from 'reactstrap';
 import { useNavigate, useParams } from 'react-router'
 import { useForm } from 'react-hook-form';
+const product = axios.create({ baseURL: "http://localhost:56156/api/Product" })
+const category = axios.create({ baseURL: "http://localhost:56156/api/Category" })
 
 const ProductDetail = () => {
     const { id } = useParams()
@@ -11,10 +13,10 @@ const ProductDetail = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get(`http://localhost:56156/api/Product/GetProductById/${id}`)
+        product.get(`/GetProductById/${id}`)
             .then(response => setSelectedData(response.data.message))
 
-        axios.get('http://localhost:56156/api/Category/GetListCategory')
+        category.get('/GetListCategory')
             .then(response => setVeriCategory(response.data.message))
     }, [])
 
@@ -25,7 +27,7 @@ const ProductDetail = () => {
         UpdateData(data)
     }
     const UpdateData = (data) => {
-        axios.put(`http://localhost:56156/api/Product/UpdateProduct`, data)
+        product.put(`/UpdateProduct`, data)
             .then((response) => console.log('sonuc', response.data))
             .finally(() => navigate('/Product'))//history push navigate v6
     }
