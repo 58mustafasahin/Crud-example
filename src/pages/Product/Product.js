@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { Button, Col, Container, DropdownItem, DropdownMenu, DropdownToggle, Form, FormGroup, Input, Label, Row, UncontrolledDropdown } from 'reactstrap';
 import MyModal from '../../components/MyModal';
+import { BsInfoCircleFill, BsPencilFill, BsTrashFill } from "react-icons/bs";
 
 const Product = () => {
     const [veri, setVeri] = useState([])
@@ -54,41 +55,82 @@ const Product = () => {
             .then((response) => console.log('sonuc', response.data))
             .finally(() => setChange(!change))
     }
-
+    const conditionalRowStyles = [
+        {
+            //when: row => row.unitsInStock > 10,
+            // style: row => ({
+            //     backgroundColor: row.unitsInStock > 10 ? 'green' : 'red',
+            //     // color: 'white',
+            //     // '&:hover': {
+            //     //     cursor: 'pointer',
+            //     // },
+            // }),
+        }
+    ];
     const columns = [
         {
-            name: 'Product Id',
+            name: <h6>Product Id</h6>,
             selector: row => row.productId,
         },
         {
-            name: 'Product Name',
+            name: <h6>Product Name</h6>,
             selector: row => row.productName,
         },
         {
-            name: 'Category Id',
+            name: <h6>Category Id</h6>,
             selector: row => row.categoryId,
         },
         {
-            name: 'Supplier Id',
-            selector: row => row.supplierId
+            name: <h6>Supplier Id</h6>,
+            selector: row => row.supplierId,
         },
         {
-            name: 'İşlemler',
+            name: <h6>Units in Stock</h6>,
+            selector: row => row.unitsInStock,
+            conditionalCellStyles: [
+                {
+                    when: row => row.unitsInStock < 10,
+                    style: {
+                        backgroundColor: 'red',
+                        color: 'white',
+                        '&:hover': {
+                            cursor: 'not-allowed',
+                        },
+                    },
+                },
+                {
+                    when: row => row.unitsInStock >= 10,
+                    style: {
+                        backgroundColor: 'green',
+                        color: 'white',
+                        '&:hover': {
+                            cursor: 'pointer',
+                        },
+                    },
+                },
+            ],
+        },
+        {
+            name: <h6>Actions</h6>,
             cell: (row) => {
                 return (
                     <UncontrolledDropdown>
-                        <DropdownToggle caret>
-                            İşlem
+                        <DropdownToggle caret >
+                            Action
                         </DropdownToggle>
-                        <DropdownMenu>
-                            <DropdownItem>
-                                <Link to={`/ProductDetail/${row.productId}`} ><Button color={"info"}>Detay</Button></Link>
+                        <DropdownMenu style={{ minWidth: 'auto' }}>
+                            <DropdownItem >
+                                <Link to={`/ProductDetail/${row.productId}`} style={{color : 'black', textDecoration:'none'}}>
+                                    <BsInfoCircleFill /> Detail
+                                </Link>
                             </DropdownItem>
-                            <DropdownItem>
-                                <Button color={"warning"} onClick={() => { setSelectedData(row); setUpdateOpen(!updateOpen) }}>Güncelle</Button>
+                            <DropdownItem onClick={() => { setSelectedData(row); setUpdateOpen(!updateOpen) }}>
+                                <BsPencilFill /> Update
+                                {/* <Button color={"warning"} onClick={() => { setSelectedData(row); setUpdateOpen(!updateOpen) }} >Update</Button> */}
                             </DropdownItem>
-                            <DropdownItem>
-                                <Button color={"danger"} onClick={() => DeleteteData(row)}>Sil</Button>
+                            <DropdownItem onClick={() => DeleteteData(row)}>
+                                <BsTrashFill /> Delete
+                                {/* <Button color={"danger"} onClick={() => DeleteteData(row)}>Delete</Button> */}
                             </DropdownItem>
                         </DropdownMenu>
                     </UncontrolledDropdown>
@@ -100,13 +142,14 @@ const Product = () => {
 
     return (
         <Container>
-            <h1>About</h1>
-            <Button color={"primary"} onClick={() => setOpen(true)}>Ekle</Button>
+            <h1>Product</h1>
+            <Button color={"primary"} onClick={() => setOpen(true)}>Add</Button>
             <DataTable
                 striped
                 pagination
                 columns={columns}
                 data={veri}
+            // conditionalRowStyles={conditionalRowStyles}
             />
 
             <MyModal

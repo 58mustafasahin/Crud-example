@@ -1,5 +1,6 @@
 import React from 'react'
 import { Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap'
+import Logo from '../assets/images/homeLogo.png'
 
 const MyNavbar = () => {
     return (
@@ -10,7 +11,7 @@ const MyNavbar = () => {
                 light
             >
                 <NavbarBrand href="/">
-                    Homeeee
+                    <img width={40} height={40} src={Logo} alt={"logo"} />
                 </NavbarBrand>
                 <NavbarToggler onClick={function noRefCheck() { }} />
                 <Collapse navbar>

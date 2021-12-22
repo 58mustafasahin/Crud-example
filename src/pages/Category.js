@@ -75,7 +75,9 @@ const Category = () => {
     return (
         <Container>
             <h1>Category</h1> {" "}
-            <Button color={"primary"} onClick={() => setOpen(true)}>Ekle</Button>
+            <Button color={"primary"} onClick={() => setOpen(true)}>Add</Button>
+            <br/>
+            <br/>
             <MyTable data={veri}
                 func1={GetSelectedData}
                 func2={DeleteData}

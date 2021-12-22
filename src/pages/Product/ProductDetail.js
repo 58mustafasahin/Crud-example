@@ -18,7 +18,7 @@ const ProductDetail = () => {
 
         category.get('/GetListCategory')
             .then(response => setVeriCategory(response.data.message))
-    }, [])
+    }, [id])
 
     const { register: registerUpdate, handleSubmit: handleSubmitUpdate, formState: { errors: errorsUpdate } } = useForm();
     const onSubmitUpdate = (data) => {
@@ -71,9 +71,9 @@ const ProductDetail = () => {
                         defaultValue={selectedData.supplierId}
                         innerRef={registerUpdate({ required: "Supplier is required" })}
                     >
-                        <option value="1" selected={selectedData.supplierId == "1"}>Exotic Liquids</option>
-                        <option value="2" selected={selectedData.supplierId == "2"}>New Orleans Cajun Delights</option>
-                        <option value="3" selected={selectedData.supplierId == "3"}>Grandma Kelly's Homestead</option>
+                        <option value="1" selected={selectedData.supplierId === "1"}>Exotic Liquids</option>
+                        <option value="2" selected={selectedData.supplierId === "2"}>New Orleans Cajun Delights</option>
+                        <option value="3" selected={selectedData.supplierId === "3"}>Grandma Kelly's Homestead</option>
                     </Input>
                     <div>
                         {
@@ -94,7 +94,7 @@ const ProductDetail = () => {
                         innerRef={registerUpdate({ required: "Category is required" })}
                     >
                         {veriCategory.map((item, key) => (
-                            <option selected={item.categoryId == selectedData.categoryId} key={key} value={item.categoryId}>{item.categoryName}</option>
+                            <option selected={item.categoryId === selectedData.categoryId} key={key} value={item.categoryId}>{item.categoryName}</option>
                         ))}
                     </Input>
                     <div>

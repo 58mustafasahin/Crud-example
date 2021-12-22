@@ -16,7 +16,7 @@ const MyTable = ({ data, func1, func2 }) => {
                             </th>
                         ))}
                         <th>
-                            İşlemler
+                            Actions
                         </th>
                     </tr>
                 </thead>
@@ -33,10 +33,10 @@ const MyTable = ({ data, func1, func2 }) => {
                             <td>
                                 <Row>
                                     <Col>
-                                        <Button color={"warning"} onClick={() => func1(item)}>Güncelle</Button>
+                                        <Button color={"warning"} onClick={() => func1(item)}>Update</Button>
                                     </Col>
                                     <Col>
-                                        <Button color={"danger"} onClick={() => func2(item.categoryId)}>Sil</Button>
+                                        <Button color={"danger"} onClick={() => func2(item.categoryId)}>Delete</Button>
                                     </Col>
                                 </Row>
                             </td>
