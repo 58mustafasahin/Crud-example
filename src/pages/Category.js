@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { BsPlusSquareFill } from 'react-icons/bs'
 import { Button, Col, Container, Form, FormGroup, Input, Label, Row } from 'reactstrap'
 import MyModal from '../components/MyModal'
 import MyTable from '../components/MyTable'
@@ -75,9 +76,8 @@ const Category = () => {
     return (
         <Container>
             <h1>Category</h1> {" "}
-            <Button color={"primary"} onClick={() => setOpen(true)}>Add</Button>
-            <br/>
-            <br/>
+            <Button className='d-flex align-items-center' color={"primary"} onClick={() => setOpen(true)}><BsPlusSquareFill /> <span className='m-1'>Add</span></Button>
+            <br />
             <MyTable data={veri}
                 func1={GetSelectedData}
                 func2={DeleteData}
@@ -85,8 +85,8 @@ const Category = () => {
             <MyModal
                 open={open}
                 setOpen={setOpen}
-                title='Ekle'
-                buttontext='Ekle'
+                title='Add Category'
+                buttontext='Add'
             >
                 <Form onSubmit={handleSubmit(onSubmit)}>
                     <FormGroup>
@@ -123,7 +123,7 @@ const Category = () => {
                         <Col >
                             <div style={{ display: "flex", justifyContent: "space-evenly" }}>
                                 <Button className="w-25 btn-sm" type="submit" color='success' >
-                                    Kaydet
+                                    Add
                                 </Button>
                                 {/* <Button className="w-25 btn-sm" type="button" color="danger" onClick={() => {setOpen(!open); console.log("sss")}}>
                                     İptal
@@ -137,8 +137,8 @@ const Category = () => {
             <MyModal
                 open={updateOpen}
                 setOpen={setUpdateOpen}
-                title='Güncelle'
-                buttontext='Güncelle'
+                title='Update Category'
+                buttontext='Update'
             >
                 <Form onSubmit={handleSubmitUpdate(onSubmitUpdate)}>
                     <Input type="text"
@@ -184,7 +184,7 @@ const Category = () => {
                         <Col >
                             <div style={{ display: "flex", justifyContent: "space-evenly" }}>
                                 <Button className="w-25 btn-sm" type="submit" color='success' >
-                                    Güncelle
+                                    Update
                                 </Button>
                                 {/* <Button className="w-25 btn-sm" type="button" color="danger" onClick={() => {setOpen(!open); console.log("sss")}}>
                                     İptal

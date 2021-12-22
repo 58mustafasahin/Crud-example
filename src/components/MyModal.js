@@ -5,7 +5,7 @@ const MyModal = ({ open, setOpen, title, children }) => {
 
     return (
         <div>
-            <Modal isOpen={open} toggle={function noRefCheck() { }}>
+            <Modal isOpen={open} toggle={()=>setOpen(!open)}>
                 <ModalHeader toggle={() => setOpen(!open)}>{title}</ModalHeader>
                 <ModalBody>
                     {children}

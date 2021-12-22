@@ -1,4 +1,5 @@
 import React from 'react'
+import { BsPencilFill, BsTrashFill } from 'react-icons/bs'
 import { Button, Col, Row, Table } from 'reactstrap'
 
 const MyTable = ({ data, func1, func2 }) => {
@@ -33,10 +34,10 @@ const MyTable = ({ data, func1, func2 }) => {
                             <td>
                                 <Row>
                                     <Col>
-                                        <Button color={"warning"} onClick={() => func1(item)}>Update</Button>
+                                        <Button  className='d-flex align-items-center' color={"warning"} onClick={() => func1(item)}><BsPencilFill /><span className='m-1'> Update</span></Button>
                                     </Col>
                                     <Col>
-                                        <Button color={"danger"} onClick={() => func2(item.categoryId)}>Delete</Button>
+                                        <Button  className='d-flex align-items-center' color={"danger"} onClick={() => func2(item.categoryId)}><BsTrashFill /><span className='m-1'> Delete</span></Button>
                                     </Col>
                                 </Row>
                             </td>

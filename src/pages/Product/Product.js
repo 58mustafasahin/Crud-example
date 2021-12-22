@@ -3,9 +3,9 @@ import React, { useEffect, useState } from 'react'
 import DataTable from 'react-data-table-component';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
-import { Button, Col, Container, DropdownItem, DropdownMenu, DropdownToggle, Form, FormGroup, Input, Label, Row, UncontrolledDropdown } from 'reactstrap';
+import { Badge, Button, Col, Container, DropdownItem, DropdownMenu, DropdownToggle, Form, FormGroup, Input, Label, Row, UncontrolledDropdown } from 'reactstrap';
 import MyModal from '../../components/MyModal';
-import { BsInfoCircleFill, BsPencilFill, BsTrashFill } from "react-icons/bs";
+import { BsInfoCircleFill, BsPencilFill, BsPlusSquareFill, BsTrashFill } from "react-icons/bs";
 
 const Product = () => {
     const [veri, setVeri] = useState([])
@@ -71,6 +71,7 @@ const Product = () => {
         {
             name: <h6>Product Id</h6>,
             selector: row => row.productId,
+            maxWidth:'10%',
         },
         {
             name: <h6>Product Name</h6>,
@@ -79,36 +80,50 @@ const Product = () => {
         {
             name: <h6>Category Id</h6>,
             selector: row => row.categoryId,
+            maxWidth:'11%',
+        },
+        {
+            name:<h6>Category Name</h6>,
+            selector:row=>row.categoryName,
         },
         {
             name: <h6>Supplier Id</h6>,
             selector: row => row.supplierId,
+            maxWidth:'11%',
+        },
+        {
+            name: <h6>Suplier Name</h6>,
+            selector:row=>row.supplierName,
         },
         {
             name: <h6>Units in Stock</h6>,
             selector: row => row.unitsInStock,
-            conditionalCellStyles: [
-                {
-                    when: row => row.unitsInStock < 10,
-                    style: {
-                        backgroundColor: 'red',
-                        color: 'white',
-                        '&:hover': {
-                            cursor: 'not-allowed',
-                        },
-                    },
-                },
-                {
-                    when: row => row.unitsInStock >= 10,
-                    style: {
-                        backgroundColor: 'green',
-                        color: 'white',
-                        '&:hover': {
-                            cursor: 'pointer',
-                        },
-                    },
-                },
-            ],
+            maxWidth:'12%',
+            // conditionalCellStyles: [
+            //     {
+            //         when: row => row.unitsInStock < 10,
+            //         style: {
+            //             backgroundColor: 'red',
+            //             color: 'white',
+            //             '&:hover': {
+            //                 cursor: 'not-allowed',
+            //             },
+            //         },
+            //     },
+            //     {
+            //         when: row => row.unitsInStock >= 10,
+            //         style: {
+            //             backgroundColor: 'green',
+            //             color: 'white',
+            //             '&:hover': {
+            //                 cursor: 'pointer',
+            //             },
+            //         },
+            //     },
+            // ],
+            cell: (row) => row.unitsInStock < 10
+                ? <Badge pill color="danger">{row.unitsInStock}</Badge>
+                : <Badge pill color="success">{row.unitsInStock}</Badge>
         },
         {
             name: <h6>Actions</h6>,
@@ -119,17 +134,17 @@ const Product = () => {
                             Action
                         </DropdownToggle>
                         <DropdownMenu style={{ minWidth: 'auto' }}>
-                            <DropdownItem >
-                                <Link to={`/ProductDetail/${row.productId}`} style={{color : 'black', textDecoration:'none'}}>
-                                    <BsInfoCircleFill /> Detail
+                            <DropdownItem className='d-flex align-items-center' >
+                                <Link to={`/ProductDetail/${row.productId}`} style={{ color: 'black', textDecoration: 'none' }}>
+                                    <BsInfoCircleFill /> <span className='m-1'>Detail</span>
                                 </Link>
                             </DropdownItem>
-                            <DropdownItem onClick={() => { setSelectedData(row); setUpdateOpen(!updateOpen) }}>
-                                <BsPencilFill /> Update
+                            <DropdownItem className='d-flex align-items-center' onClick={() => { setSelectedData(row); setUpdateOpen(!updateOpen) }}>
+                                <BsPencilFill /> <span className='m-1'>Update</span>
                                 {/* <Button color={"warning"} onClick={() => { setSelectedData(row); setUpdateOpen(!updateOpen) }} >Update</Button> */}
                             </DropdownItem>
-                            <DropdownItem onClick={() => DeleteteData(row)}>
-                                <BsTrashFill /> Delete
+                            <DropdownItem className='d-flex align-items-center' onClick={() => DeleteteData(row)}>
+                                <BsTrashFill /> <span className='m-1'>Delete</span>
                                 {/* <Button color={"danger"} onClick={() => DeleteteData(row)}>Delete</Button> */}
                             </DropdownItem>
                         </DropdownMenu>
@@ -143,7 +158,8 @@ const Product = () => {
     return (
         <Container>
             <h1>Product</h1>
-            <Button color={"primary"} onClick={() => setOpen(true)}>Add</Button>
+            <Button className='d-flex align-items-center' color={"primary"} onClick={() => setOpen(true)} ><BsPlusSquareFill /> <span className='m-1'>Add</span></Button>
+            <br/>
             <DataTable
                 striped
                 pagination
@@ -155,7 +171,7 @@ const Product = () => {
             <MyModal
                 open={open}
                 setOpen={setOpen}
-                title='Ekle'
+                title='Add Product'
             >
                 <Form onSubmit={handleSubmit(AddData)}>
                     <FormGroup>
@@ -342,7 +358,7 @@ const Product = () => {
                         <Col >
                             <div style={{ display: "flex", justifyContent: "space-evenly" }}>
                                 <Button className="w-25 btn-sm" type="submit" color='success' >
-                                    Kaydet
+                                    Add
                                 </Button>
                                 {/* <Button className="w-25 btn-sm" type="button" color="danger" onClick={() => {setOpen(!open); console.log("sss")}}>
                                     İptal
@@ -356,7 +372,7 @@ const Product = () => {
             <MyModal
                 open={updateOpen}
                 setOpen={setUpdateOpen}
-                title='Ekle'
+                title='Update Product'
             >
                 <Form onSubmit={handleSubmitUpdate(onSubmitUpdate)}>
                     <Input type="text"
@@ -559,7 +575,7 @@ const Product = () => {
                         <Col >
                             <div style={{ display: "flex", justifyContent: "space-evenly" }}>
                                 <Button className="w-25 btn-sm" type="submit" color='success' >
-                                    Güncelle
+                                    Update
                                 </Button>
                                 {/* <Button className="w-25 btn-sm" type="button" color="danger" onClick={() => {setOpen(!open); console.log("sss")}}>
                                     İptal

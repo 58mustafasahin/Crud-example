@@ -21,30 +21,29 @@ const MyNavbar = () => {
                     >
                         <NavItem>
                             <NavLink href="/">
-                                Home
+                                <h5>Home</h5>
                             </NavLink>
                         </NavItem>
                         <NavItem>
                             <NavLink href="/Gallery">
-                                Gallery
+                                <h5>Gallery</h5>
                             </NavLink>
                         </NavItem>
                         <NavItem>
                             <NavLink href="/Category">
-                                Category
+                                <h5>Category</h5>
                             </NavLink>
                         </NavItem>
                         <NavItem>
                             <NavLink href="/Product">
-                                Product
+                                <h5>Product</h5>
                             </NavLink>
                         </NavItem>
                         <NavItem>
                             <NavLink href="/About">
-                                About
+                                <h5>About</h5>
                             </NavLink>
                         </NavItem>
-
                     </Nav>
                 </Collapse>
             </Navbar>
