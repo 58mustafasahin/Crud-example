@@ -77,7 +77,7 @@ const Category = () => {
         <Container>
             <h1>Category</h1> {" "}
             <Button className='d-flex align-items-center' color={"primary"} onClick={() => setOpen(true)}><BsPlusSquareFill /> <span className='m-1'>Add</span></Button>
-            <br />
+            <br /> 
             <MyTable data={veri}
                 func1={GetSelectedData}
                 func2={DeleteData}
