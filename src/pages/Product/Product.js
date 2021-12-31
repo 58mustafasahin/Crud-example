@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { Badge, Button, Col, Container, DropdownItem, DropdownMenu, DropdownToggle, Form, FormGroup, Input, Label, Row, UncontrolledDropdown } from 'reactstrap';
 import MyModal from '../../components/MyModal';
 import { BsInfoCircleFill, BsPencilFill, BsPlusSquareFill, BsTrashFill } from "react-icons/bs";
+import { confirm } from '../../utils/SweetAlert';
 
 const Product = () => {
     const [veri, setVeri] = useState([])
@@ -14,6 +15,7 @@ const Product = () => {
     const [updateOpen, setUpdateOpen] = useState(false)
     const [change, setChange] = useState(false)
     const [selectedData, setSelectedData] = useState([])
+    const [check, setCheck] = useState(true)
 
     useEffect(() => {
         axios.get('http://localhost:56156/api/Product/GetProductList')
@@ -23,37 +25,65 @@ const Product = () => {
             .then(response => setVeriCategory(response.data.message))
     }, [change])
 
-    const { register, handleSubmit, formState: { errors } } = useForm();
-    // const onSubmit = (data) => {
-    //     data.discontinued = data.discontinued === "true" ? true : false;
-    //     console.log("data", data)
-    //     AddData(data)
-    // }
     const AddData = (data) => {
+        return axios.post('http://localhost:56156/api/Product/AddProduct', data)
+    }
+    const { register, handleSubmit, formState: { errors } } = useForm();
+    const onSubmit = (data) => {
         data.discontinued = data.discontinued === "true" ? true : false;
-        axios.post('http://localhost:56156/api/Product/AddProduct', data)
-            .then((response) => console.log('sonuc', response.data))
-            .then(() => setOpen(!open))
-            .finally(() => setChange(!change));
+        confirm(
+            {
+                title: "Onay",
+                text: "Kaydı Eklemek istediğinize emin misiniz?",
+            },
+            async () => {
+                return AddData(data)
+            },
+            async () => {
+                return setOpen(!open), setChange(!change)
+            }, async () => {
+                return null
+            }
+        );
     }
 
+    const UpdateData = (data) => {
+        return axios.put(`http://localhost:56156/api/Product/UpdateProduct`, data)
+    }
     const { register: registerUpdate, handleSubmit: handleSubmitUpdate, formState: { errors: errorsUpdate } } = useForm();
     const onSubmitUpdate = (data) => {
         data.discontinued = data.discontinued === "true" ? true : false;
-        console.log("data", data)
-        UpdateData(data)
-    }
-    const UpdateData = (data) => {
-        axios.put(`http://localhost:56156/api/Product/UpdateProduct`, data)
-            .then((response) => console.log('sonuc', response.data))
-            .then(() => setUpdateOpen(!updateOpen))
-            .finally(() => setChange(!change))
+        confirm(
+            {
+                title: "Onay",
+                text: "Kaydı Güncellemek istediğinize emin misiniz?",
+            },
+            async () => {
+                return UpdateData(data)
+            },
+            async () => {
+                return setUpdateOpen(!updateOpen), setChange(!change)
+            }, async () => {
+                return null
+            }
+        );
     }
 
     const DeleteteData = (data) => {
-        axios.delete(`http://localhost:56156/api/Product/DeleteProduct/${data.productId}`)
-            .then((response) => console.log('sonuc', response.data))
-            .finally(() => setChange(!change))
+        confirm(
+            {
+                title: "Onay",
+                text: "Kaydı Silmek istediğinize emin misiniz?",
+            },
+            async () => {
+                return axios.delete(`http://localhost:56156/api/Product/DeleteProduct/${data.productId}`)
+            },
+            async () => {
+                return setChange(!change)
+            }, async () => {
+                return null
+            }
+        );
     }
     const conditionalRowStyles = [
         {
@@ -139,7 +169,7 @@ const Product = () => {
                                     <BsInfoCircleFill /> <span className='m-1'>Detail</span>
                                 </Link>
                             </DropdownItem>
-                            <DropdownItem className='d-flex align-items-center' onClick={() => { setSelectedData(row); setUpdateOpen(!updateOpen) }}>
+                            <DropdownItem className='d-flex align-items-center' onClick={() => { setSelectedData(row); setUpdateOpen(!updateOpen); setCheck(row.discontinued) }}>
                                 <BsPencilFill /> <span className='m-1'>Update</span>
                                 {/* <Button color={"warning"} onClick={() => { setSelectedData(row); setUpdateOpen(!updateOpen) }} >Update</Button> */}
                             </DropdownItem>
@@ -174,7 +204,7 @@ const Product = () => {
                     setOpen={setOpen}
                     title='Add Product'
                 >
-                    <Form onSubmit={handleSubmit(AddData)}>
+                    <Form onSubmit={handleSubmit(onSubmit)}>
                         <FormGroup>
                             <Label for="productName">Product Name</Label>
                             <Input
@@ -543,9 +573,11 @@ const Product = () => {
                                 <Input
                                     name="discontinued"
                                     type="radio"
-                                    checked={selectedData.discontinued === true}
-                                    innerRef={registerUpdate({ required: "Discontinued is required" })}
                                     value={true}
+                                    defaultValue={selectedData.discontinued}
+                                    innerRef={registerUpdate({ required: "Discontinued is required" })}
+                                    checked={check === true}
+                                    onChange={() => setCheck(true)}
                                 />
                                 {' '}
                                 <Label >
@@ -556,9 +588,11 @@ const Product = () => {
                                 <Input
                                     name="discontinued"
                                     type="radio"
-                                    checked={selectedData.discontinued === false}
-                                    innerRef={registerUpdate({ required: "Discontinued is required" })}
                                     value={false}
+                                    defaultValue={selectedData.discontinued === false}
+                                    innerRef={registerUpdate({ required: "Discontinued is required" })}
+                                    checked={check === false}
+                                    onChange={() => setCheck(false)}
                                 />
                                 {' '}
                                 <Label>

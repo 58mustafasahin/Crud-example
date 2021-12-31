@@ -4,12 +4,14 @@ import { BsPlusSquareFill } from 'react-icons/bs'
 import { Button, Col, Container, Form, FormGroup, Input, Label, Row } from 'reactstrap'
 import MyModal from '../components/MyModal'
 import MyTable from '../components/MyTable'
+import { confirm } from '../utils/SweetAlert'
 
 const Category = () => {
     const [veri, setVeri] = useState([])
     const [change, setChange] = useState(false)
     const [open, setOpen] = useState(false)
     const [updateOpen, setUpdateOpen] = useState(false)
+    const [sdata, setSData] = useState([])
 
     const [selectedData, setSelectedData] = useState([])
     const GetSelectedData = (data) => {
@@ -37,16 +39,30 @@ const Category = () => {
             },
         })
             .then((response) => response.json())
+            .then((deger) => setSData(deger))
             .then(() => setOpen(!open))
             .finally(() => setChange(!change));
     }
     const { register, handleSubmit, formState: { errors } } = useForm({});
     const onSubmit = (data) => {
-        AddData(data)
+        confirm(
+            {
+                title: "Onay",
+                text: "Kaydı Eklemek istediğinize emin misiniz?",
+            },
+            async () => {
+                return AddData(data), sdata
+            },
+            async () => {
+                return null
+            }, async () => {
+                return null
+            }
+        );
     }
 
     const UpdateData = (data) => {
-        fetch(`http://localhost:56156/api/Category/UpdateCategory`, {
+        return fetch(`http://localhost:56156/api/Category/UpdateCategory`, {
             method: 'PUT',
             body: JSON.stringify({
                 categoryId: data.categoryId,
@@ -59,25 +75,51 @@ const Category = () => {
         })
             .then((response) => response.json())
             .then(() => setUpdateOpen(!updateOpen))
+            .then((deger) => setSData(deger))
             .finally(() => setChange(!change));
     }
     const { register: registerUpdate, handleSubmit: handleSubmitUpdate, formState: { errors: errorsUpdate } } = useForm();
     const onSubmitUpdate = (data) => {
-        UpdateData(data)
+        confirm(
+            {
+                title: "Onay",
+                text: "Kaydı Güncellemek istediğinize emin misiniz?",
+            },
+            async () => {
+                return UpdateData(data)
+            },
+            async () => {
+                return null
+            }, async () => {
+                return null
+            }
+        );
     }
 
     const DeleteData = (selectedId) => {
-        fetch(`http://localhost:56156/api/Category/DeleteCategory/${selectedId}`, {
-            method: 'DELETE',
-        })
-            .then(() => setChange(!change));;
+        confirm(
+            {
+                title: "Onay",
+                text: "Kaydı Silmek istediğinize emin misiniz?",
+            },
+            async () => {
+                return fetch(`http://localhost:56156/api/Category/DeleteCategory/${selectedId}`, {
+                    method: 'DELETE',
+                }).then(() => setChange(!change))
+            },
+            async () => {
+                return null
+            }, async () => {
+                return null
+            }
+        );
     }
 
     return (
         <Container>
             <h1>Category</h1> {" "}
             <Button className='d-flex align-items-center' color={"primary"} onClick={() => setOpen(true)}><BsPlusSquareFill /> <span className='m-1'>Add</span></Button>
-            <br /> 
+            <br />
             <MyTable data={veri}
                 func1={GetSelectedData}
                 func2={DeleteData}
