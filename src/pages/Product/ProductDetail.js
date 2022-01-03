@@ -43,14 +43,14 @@ const ProductDetail = () => {
                     <Col lg="6" >
                         <Card className='p-3' >
                             <Form onSubmit={handleSubmitUpdate(onSubmitUpdate)}>
-                                <Input type="text"
-                                    id="productId"
-                                    name="productId"
-                                    hidden
-                                    defaultValue={selectedData.productId}
-                                    innerRef={registerUpdate()}
-                                />
                                 <FormGroup>
+                                    <Input type="text"
+                                        id="productId"
+                                        name="productId"
+                                        hidden
+                                        defaultValue={selectedData.productId}
+                                        innerRef={registerUpdate()}
+                                    />
                                     <Label for="productName">Product Name</Label>
                                     <Input
                                         type="text"

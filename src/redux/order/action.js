@@ -6,7 +6,7 @@ export const GetListOrder = () => {
         OrderService.GetListOrder().then(res => {
             dispatch({
                 type: 'GET_LIST_ORDER',
-                getOrderList: res.data.message
+                getListOrder: res.data.message
             })
         })
             .catch(err => console.log(err))

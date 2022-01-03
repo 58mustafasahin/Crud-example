@@ -1,14 +1,14 @@
 const initalState = {
-    getOrderList: {},
-    getOrderListByEmployeeId: [],
-    getOrderById: [],
+    getListOrder: [],
+    getOrderListByEmployeeId: {},
+    getOrderById: {},
 }
 const OrderReducer = (state = initalState, action) => {
     switch (action.type) {
         case 'GET_LIST_ORDER':
             return {
                 ...state,
-                getOrderList: action.getOrderList
+                getListOrder: action.getListOrder
             }
         case 'GET_ORDER_LIST_BY_EMPLOYEE_ID':
             return {
