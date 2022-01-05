@@ -15,7 +15,7 @@ const OrderDetail = () => {
 
     useEffect(() => {
         dispatch(GetOrderById(id))
-    }, [id])
+    }, [])
     console.log('asd',getOrderById)
 
     const { register: registerUpdate, handleSubmit: handleSubmitUpdate, formState: { errors: errorsUpdate } } = useForm();
@@ -114,7 +114,7 @@ const OrderDetail = () => {
                                                 id="orderDate"
                                                 name="orderDate"
                                                 type="date"
-                                                defaultValue={getOrderById.orderDate.split('T')[0]}
+                                                defaultValue={getOrderById?.orderDate?.split('T')[0]}
                                                 innerRef={registerUpdate({ required: "Order Date is required" })}
                                                 >
                                             </Input>
@@ -132,7 +132,7 @@ const OrderDetail = () => {
                                                 id="requiredDate"
                                                 name="requiredDate"
                                                 type="date"
-                                                defaultValue={getOrderById.requiredDate.split('T')[0]}
+                                                defaultValue={getOrderById?.requiredDate?.split('T')[0]}
                                                 innerRef={registerUpdate({ required: "Required Date is required" })}
                                             >
                                             </Input>
@@ -195,7 +195,7 @@ const OrderDetail = () => {
                                                 id="shippedDate"
                                                 name="shippedDate"
                                                 type="date"
-                                                defaultValue={getOrderById.shippedDate.split('T')[0]}
+                                                defaultValue={getOrderById?.shippedDate?.split('T')[0]}
                                                 innerRef={registerUpdate({ required: "Shipped Date is required" })}
                                             >
                                             </Input>
