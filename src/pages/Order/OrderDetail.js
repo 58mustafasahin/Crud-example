@@ -15,8 +15,8 @@ const OrderDetail = () => {
 
     useEffect(() => {
         dispatch(GetOrderById(id))
-    }, [])
-    console.log('asd',getOrderById)
+    }, [dispatch])
+    console.log('asd', getOrderById)
 
     const { register: registerUpdate, handleSubmit: handleSubmitUpdate, formState: { errors: errorsUpdate } } = useForm();
     const onSubmitUpdate = (data) => {
@@ -116,7 +116,7 @@ const OrderDetail = () => {
                                                 type="date"
                                                 defaultValue={getOrderById?.orderDate?.split('T')[0]}
                                                 innerRef={registerUpdate({ required: "Order Date is required" })}
-                                                >
+                                            >
                                             </Input>
                                             <div>
                                                 {
@@ -219,7 +219,7 @@ const OrderDetail = () => {
                                                 defaultValue={getOrderById.shipName}
                                                 innerRef={registerUpdate({ required: "Ship Name is required" })}
                                                 placeholder="Ship Name"
-                                                />
+                                            />
                                             <div>
                                                 {
                                                     errorsUpdate.shipName?.message
@@ -256,7 +256,7 @@ const OrderDetail = () => {
                                                 defaultValue={getOrderById.shipCity}
                                                 innerRef={registerUpdate({ required: "Ship City is required" })}
                                                 placeholder="Ship City"
-                                                />
+                                            />
                                             <div>
                                                 {
                                                     errorsUpdate.shipCity?.message
@@ -293,7 +293,7 @@ const OrderDetail = () => {
                                                 defaultValue={getOrderById.shipPostalCode}
                                                 innerRef={registerUpdate({ required: "Ship Postal Code is required" })}
                                                 placeholder="Ship Postal Code"
-                                                />
+                                            />
                                             <div>
                                                 {
                                                     errorsUpdate.shipPostalCode?.message
@@ -306,7 +306,7 @@ const OrderDetail = () => {
                                                 type="text"
                                                 id="shipRegion"
                                                 name="shipRegion"
-                                                defaultValue={getOrderById.shipRegion===null&&'null'}
+                                                defaultValue={getOrderById.shipRegion === null && 'null'}
                                                 innerRef={registerUpdate({ required: "Ship Region is required" })}
                                                 placeholder="Ship Region"
                                             />
@@ -323,7 +323,7 @@ const OrderDetail = () => {
                                     <Col >
                                         <div style={{ display: "flex", justifyContent: "space-evenly" }}>
                                             <Button className="w-25 btn-sm" type="submit" color='success' >
-                                                Add
+                                                Update
                                             </Button>
                                             {/* <Button className="w-25 btn-sm" type="button" color="danger" onClick={() => {setOpen(!open); console.log("sss")}}>
                                     İptal

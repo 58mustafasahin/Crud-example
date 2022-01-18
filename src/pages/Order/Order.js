@@ -19,7 +19,7 @@ const Order = () => {
 
     useEffect(() => {
         dispatch(GetListOrder())
-    }, [change])
+    }, [dispatch, change])
 
 
     const { register, handleSubmit, formState: { errors } } = useForm();

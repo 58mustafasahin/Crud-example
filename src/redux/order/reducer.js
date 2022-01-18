@@ -1,6 +1,6 @@
 const initalState = {
     getListOrder: [],
-    getOrderListByEmployeeId: {},
+    getOrderListByEmployeeId: [],
     getOrderById: {},
 }
 const OrderReducer = (state = initalState, action) => {
